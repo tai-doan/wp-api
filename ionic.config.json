@@ -1,0 +1,7 @@
+{
+  "name": "wp-api",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
