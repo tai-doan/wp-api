@@ -7,30 +7,30 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="false">
+<ion-content [fullscreen]="true">
     <ion-grid>
         <ion-row>
-            <ion-col size="6" class="ion-align-self-start">
-                <ion-button color="primary">
+            <ion-col size="6" class="ion-align-self-start" *ngIf="(authService.isAuthenticated | async)">
+                <ion-button color="primary" [routerLink]="['/home',post?.id ,'edit']" routerLinkActive="router-link-active">
                     <ion-icon slot="start" name="create"></ion-icon>
                     Edit
                 </ion-button>
             </ion-col>
-            <ion-col size="6" class="ion-align-self-end">
-                <ion-button style="float: right;" color="danger">
+            <ion-col size="6" class="ion-align-self-end" *ngIf="(authService.isAuthenticated | async)">
+                <ion-button style="float: right;" color="danger" (click)="onDelete()">
                     <ion-icon slot="start" name="trash"></ion-icon>
                     Delete
                 </ion-button>
             </ion-col>
             <ion-col size="12">
                 <ion-card>
-                    <img src="{{post.featured_image_src}}" />
+                    <img src="{{post?.featured_image_src}}" />
                     <ion-card-header>
-                        <ion-card-subtitle [innerHTML]="post.date | date"></ion-card-subtitle>
-                        <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
+                        <ion-card-subtitle [innerHTML]="post?.date | date"></ion-card-subtitle>
+                        <ion-card-title [innerHTML]="post?.title?.rendered"></ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        <p [innerHTML]="post.content.rendered"></p>
+                        <p [innerHTML]="post?.content?.rendered"></p>
                     </ion-card-content>
                 </ion-card>
             </ion-col>

@@ -1,9 +1,39 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>post-edit</ion-title>
+        <ion-title>Post Edit</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    edit work
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+                <form #f="ngForm" (ngSubmit)="onEdit(f)">
+                    <ion-item>
+                        <ion-label position="floating">Title: </ion-label>
+                        <ion-input name="title" type="text" [(ngModel)]="model.title"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating">Content: </ion-label>
+                        <ion-textarea rows="10" cols="20" name="content" [(ngModel)]="model.content"></ion-textarea>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Select status</ion-label>
+                        <ion-select [(ngModel)]="model.status" name="status" placeholder="Select Status">
+                            <ion-select-option value="publish">Publish</ion-select-option>
+                            <ion-select-option value="future">Future</ion-select-option>
+                            <ion-select-option value="pending">Pending</ion-select-option>
+                            <ion-select-option value="draft">Draft</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-button type="submit" expand="block" color="primary">
+                        Submit
+                    </ion-button>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterOutlet, Router, ActivatedRoute, ActivationStart } from '@angular/router';
 import { ApiService } from '../service/api.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -8,23 +9,27 @@ import { ApiService } from '../service/api.service';
   styleUrls: ['./post-detail.page.scss'],
 })
 export class PostDetailPage implements OnInit {
+  @ViewChild(RouterOutlet) outlet: RouterOutlet;
   post: any=[];
-  id;
-  constructor(private activatedRoute: ActivatedRoute, private ApiService: ApiService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
-    // const id=this.activatedRoute.snapshot.paramMap.get('id');
-    this.activatedRoute.paramMap.subscribe(p => {
-      this.id = +p.get('id');
-    })
-    console.log(this.id);
-    this.ApiService.getData(`posts/${this.id}`).subscribe( data => {
+    this.router.events.subscribe(e => {
+      if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+        this.outlet.deactivate();
+    });
+    const id=this.activatedRoute.snapshot.paramMap.get('id');
+    this.apiService.getData(`posts/${id}`).subscribe( data => {
       console.log(data);
       this.post= data;
-      // setTimeout(() => {
-      //   this.post= data;
-      // }, 1500);
     })
   }
 
+  onDelete(){
+    this.apiService.deleteData(`posts/${this.post.id}`).subscribe(data => {
+      console.log(data);
+      this.apiService.refreshPost.next();
+      this.router.navigateByUrl('/home');
+    });
+  }
 }

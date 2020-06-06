@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./post-detail/post-detail.module').then( m => m.PostDetailPageModule)
   },
   {
+    path: 'home/post-add',
+    loadChildren: () => import('./post-add/post-add.module').then( m => m.PostAddPageModule)
+  },
+  {
+    path: 'home/:id/edit',
+    loadChildren: () => import('./post-edit/post-edit.module').then( m => m.PostEditPageModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -20,16 +28,12 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'post-detail',
-    loadChildren: () => import('./post-detail/post-detail.module').then( m => m.PostDetailPageModule)
-  },
-  {
-    path: 'post-edit',
-    loadChildren: () => import('./post-edit/post-edit.module').then( m => m.PostEditPageModule)
-  },
-  {
     path: 'post-add',
     loadChildren: () => import('./post-add/post-add.module').then( m => m.PostAddPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

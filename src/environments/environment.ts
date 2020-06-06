@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.kntrims.com/wp-json/wp/v2'
+  apiUrl: 'http://api.kntrims.com/wp-json'
 };
 
 /*

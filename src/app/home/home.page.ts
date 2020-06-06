@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
   posts: any=[];
-  constructor(private ApiService: ApiService, private router: Router) {
+  constructor(public authService: AuthService, private ApiService: ApiService, private router: Router) {
+    this.getPost();
+    this.ApiService.refreshPost.subscribe(() => {
+      this.getPost();
+    });
+  }
+
+  getPost(){
     this.ApiService.getData('posts').subscribe(data => {
       console.log(data);
       setTimeout(() => {
@@ -17,8 +25,7 @@ export class HomePage {
       }, 2000);
     })
   }
-
-  viewDetail(id){
-    this.router.navigate([`post-detail/${id}`]);
+  onCreate(){
+    console.log("onCreate")
   }
 }
